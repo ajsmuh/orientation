@@ -1,31 +1,20 @@
-
 <script>
-
-    let alpha = $state(null);
-
-    let beta = $state(null);
-
-    let gamma = $state(null);
+  let alpha = $state(null);
+  let beta = $state(null);
+  let gamma = $state(null);
  
-    async function start() {
-
-        if (DeviceOrientationEvent.requestPermission) {
-
-            await DeviceOrientationEvent.requestPermission();
-
-        }
- 
-        window.addEventListener('deviceorientation', (event) => {
-
-            alpha = event.alpha;
-
-            beta = event.beta;
-
-            gamma = event.gamma;
-
-        });
-
+  async function start() {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const result = await DeviceOrientationEvent.requestPermission();
+      if (result !== 'granted') return;
     }
+ 
+    window.addEventListener('deviceorientation', (event) => {
+      alpha = event.alpha;
+      beta = event.beta;
+      gamma = event.gamma;
+    });
+  }
 </script>
  
 <h1>Device Orientation</h1>
@@ -35,5 +24,3 @@
 <p>Alpha: {alpha}</p>
 <p>Beta: {beta}</p>
 <p>Gamma: {gamma}</p>
-
- 
